@@ -9,4 +9,4 @@ default: &default
 
 test:
   <<: *default
-  database: chem-chem_ci_test
+  database: train-nari_ci_test
