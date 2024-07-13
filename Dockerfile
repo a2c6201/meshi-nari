@@ -27,6 +27,6 @@ RUN \
 COPY . $APP_ROOT/
 # ローカルのapp配下のファイルをコンテナ内のmyapp配下にコピー
 
-EXPOSE 3000
+EXPOSE 8000
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
