@@ -2,4 +2,4 @@
 export DATABASE_USERNAME=''
 export DATABASE_PASSWORD=''
 export DATABASE_HOST=''
-
+export APP_DATABASE_PASSWORD='app-pass'
