@@ -24,14 +24,10 @@ module Api
       def create
         @user = User.new(user_params)
 
-        respond_to do |format|
-          if @user.save
-            format.html { redirect_to user_url(@user), notice: I18n.t('users.create.success') }
-            format.json { render :show, status: :created, location: @user }
-          else
-            format.html { render :new, status: :unprocessable_entity }
-            format.json { render json: @user.errors, status: :unprocessable_entity }
-          end
+        if @user.save
+          render json: @user, status: :created
+        else
+          render json: @user.errors, status: :unprocessable_entity
         end
       end
 
@@ -67,7 +63,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def user_params
-        params.require(:user).permit(:name, :email, :password, :created_at, :updated_at)
+        params.require(:user).permit(:name, :email, :password)
       end
     end
   end
