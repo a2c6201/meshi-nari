@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  chem-chem:
+  train-nari-api:
     build: .
     environment:
       DATABASE_USERNAME: $DATABASE_USERNAME
