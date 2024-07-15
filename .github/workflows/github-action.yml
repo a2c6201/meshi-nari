@@ -14,7 +14,7 @@ jobs:
           - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: root_password
-          MYSQL_DATABASE: foo
+          MYSQL_DATABASE: train-nari_test
           MYSQL_USER: test_user
           MYSQL_PASSWORD: test_password
         options: >-
