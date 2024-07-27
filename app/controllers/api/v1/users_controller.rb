@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :set_user, only: %i(show edit update destroy)
+      before_action :set_user, only: %i(show destroy)
 
       # GET user一覧
       def index
