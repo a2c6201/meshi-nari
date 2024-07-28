@@ -29,4 +29,4 @@ COPY . $APP_ROOT/
 
 EXPOSE 8000
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]
