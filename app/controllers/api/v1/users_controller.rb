@@ -46,12 +46,12 @@ module Api
 
       # DELETE /users/1 or /users/1.json
       def destroy
-        @user.destroy
-
-        respond_to do |format|
-          format.html { redirect_to users_url, notice: I18n.t('users.destroy.success') }
-          format.json { head :no_content }
-        end
+        @user.destroy!
+        render json: { message: 'User deleted successfully' }, status: :ok
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: 'User not found' }, status: :not_found
+      rescue StandardError => e
+        render json: { error: e.message }, status: :unprocessable_entity
       end
 
       private
