@@ -10,6 +10,14 @@ users = [
   ['テストユーザー', 'test@gmail', 'test_pass']
 ]
 
+menus = [
+  ['ベンチプレス', 1]
+]
+
 users.each do |name, email, password|
   User.create(name:, email:, password:)
+end
+
+menus.each do |name, user_id|
+  Menu.create(name:, user_id:)
 end
