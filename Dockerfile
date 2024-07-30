@@ -9,8 +9,7 @@ WORKDIR $APP_ROOT
 
 RUN \
   apt-get update -qq && apt-get install -y $BUILD_PACKAGES --no-install-recommends && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* /tmp/* /var/tmp/* && \
-  rails db:migrate && rails db:seed
+  apt-get clean && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* /tmp/* /var/tmp/*
 
 COPY Gemfile $APP_ROOT/
 COPY Gemfile.lock $APP_ROOT/
@@ -30,4 +29,5 @@ COPY . $APP_ROOT/
 
 EXPOSE 8000
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# データベースマイグレーションとシードデータの挿入をアプリケーションの起動時に実行
+CMD ["sh", "-c", "rails db:migrate && rails db:seed && rails server -b 0.0.0.0"]
