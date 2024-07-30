@@ -9,7 +9,8 @@ WORKDIR $APP_ROOT
 
 RUN \
   apt-get update -qq && apt-get install -y $BUILD_PACKAGES --no-install-recommends && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* /tmp/* /var/tmp/*
+  apt-get clean && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* /tmp/* /var/tmp/* && \
+  rails db:migrate && rails db:seed
 
 COPY Gemfile $APP_ROOT/
 COPY Gemfile.lock $APP_ROOT/
