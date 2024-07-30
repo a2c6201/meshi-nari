@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  train-nari-api:
+  web:
     build: .
     environment:
       DATABASE_USERNAME: $DATABASE_USERNAME
@@ -11,15 +11,14 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - train-nari-db
+      - db
     # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     stdin_open: true  # コンテナの標準入力を開く
     tty: true         # コンテナの標準入力を維持する
-  train-nari-db:
+  db:
     image: postgres:latest
     platform: linux/amd64
     restart: always
-    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     environment:
       POSTGRES_USER: $DATABASE_USERNAME
       POSTGRES_PASSWORD: $DATABASE_PASSWORD
