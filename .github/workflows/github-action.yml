@@ -16,6 +16,8 @@ jobs:
           DATABASE_USERNAME: test_user
           POSTGRES_PASSWORD: test_password
           POSTGRES_DB: train-nari_test
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
         options: >-
           --health-cmd "pg_isready"
           --health-interval 10s
@@ -27,9 +29,6 @@ jobs:
 
       - name: Show databases for test_user
         run: PGPASSWORD=test_password psql -h localhost -p 5432 -U test_user -d train-nari_test -c "SELECT datname FROM pg_database"
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
 
       - name: Checkout code
         uses: actions/checkout@v2
