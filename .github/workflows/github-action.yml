@@ -13,10 +13,11 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_ROOT_PASSWORD: root_password
-          MYSQL_DATABASE: train-nari_test
-          MYSQL_USER: test_user
-          MYSQL_PASSWORD: test_password
+          DATABASE_USERNAME: test_user
+          DATABASE_PASSWORD: test_password
+          DATABASE_HOST: localhost
+          DATABASE_PORT: 5432
+          RAILS_MAX_THREADS: 5
         options: >-
           --health-cmd "mysqladmin ping"
           --health-interval 10s
