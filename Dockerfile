@@ -30,4 +30,4 @@ COPY . $APP_ROOT/
 EXPOSE 8000
 
 # データベースマイグレーションとシードデータの挿入をアプリケーションの起動時に実行
-CMD ["sh", "-c", "rails db:migrate && rails db:seed && rails server -b 0.0.0.0"]
+CMD ["sh", "-c", "rails db:migrate && rails server -b 0.0.0.0"]
