@@ -12,12 +12,6 @@ jobs:
         image: postgres:latest
         ports:
           - 5432:5432
-        env:
-          DATABASE_USERNAME: test_user
-          POSTGRES_PASSWORD: test_password
-          POSTGRES_DB: train-nari_test
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
         options: >-
           --health-cmd "pg_isready"
           --health-interval 10s
