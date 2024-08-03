@@ -27,9 +27,6 @@ jobs:
       - name: Show Docker containers
         run: docker ps -a
 
-      - name: Show databases for test_user
-        run: PGPASSWORD=test_password psql -h localhost -p 5432 -U test_user -d train-nari_test -c "SELECT datname FROM pg_database"
-
       - name: Checkout code
         uses: actions/checkout@v2
 
