@@ -27,6 +27,9 @@ jobs:
 
       - name: Show databases for test_user
         run: PGPASSWORD=test_password psql -h localhost -p 5432 -U test_user -d train-nari_test -c "SELECT datname FROM pg_database"
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
 
       - name: Checkout code
         uses: actions/checkout@v2
