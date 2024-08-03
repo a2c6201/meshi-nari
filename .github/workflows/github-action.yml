@@ -14,7 +14,7 @@ jobs:
           - 5432:5432
         env:
           DATABASE_USERNAME: test_user
-          DATABASE_PASSWORD: test_password
+          POSTGRES_PASSWORD: test_password
           POSTGRES_DB: train-nari_test
         options: >-
           --health-cmd "pg_isready"
