@@ -1,7 +1,8 @@
 test:
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   username: test_user
   password: test_password
   host: 127.0.0.1
   database: train-nari_test
+  pool: 5

@@ -2,7 +2,7 @@ FROM ruby:3.1.2
 
 ENV TZ Asia/Tokyo
 ENV APP_ROOT /usr/src/app
-ENV BUILD_PACKAGES="vim mariadb-client"
+ENV BUILD_PACKAGES="vim postgresql-client libpq-dev"
 
 WORKDIR $APP_ROOT
 # 作成したapp rootディレクトリを作業用ディレクトリとして設定
@@ -29,4 +29,5 @@ COPY . $APP_ROOT/
 
 EXPOSE 8000
 
-# CMD ["rails", "server", "-b", "0.0.0.0"]
+# データベースマイグレーションとシードデータの挿入をアプリケーションの起動時に実行
+CMD ["sh", "-c", "rails db:migrate && rails server -b 0.0.0.0"]

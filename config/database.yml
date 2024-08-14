@@ -9,16 +9,15 @@
 # And be sure to use new-style password hashing:
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
+
 default: &default
-  adapter: mysql2
-  encoding: utf8mb4
-  charset: utf8mb4
-  collation: utf8mb4_general_ci
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("DATABASE_USERNAME") { "root" } %>
-  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
-  host: <%= ENV.fetch("DATABASE_HOST") { "mysql" } %>
-  port: <%= ENV.fetch('DATABASE_PORT') { 3306 } %>
+  username: <%= ENV.fetch("DATABASE_USERNAME") { "postgres" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "test_password" } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
+  port: <%= ENV.fetch('DATABASE_PORT') { 5432 } %>
 
 development:
   <<: *default

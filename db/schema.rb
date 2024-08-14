@@ -11,7 +11,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_07_28_044231) do
-  create_table "menus", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "menus", force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -19,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_28_044231) do
     t.index ["user_id"], name: "index_menus_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password"
