@@ -47,6 +47,9 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# APIのドキュメント生成
+gem 'rswag'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'annotate' # https://github.com/ctran/annotate_models
@@ -61,6 +64,7 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'ruby-lsp', require: false
+  gem 'rspec-rails'
 end
 
 group :development do
