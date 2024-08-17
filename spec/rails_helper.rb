@@ -30,8 +30,17 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
+  # すべてのリクエストスペックでlocalhostを使用する
+  config.before(:each, type: :request) do
+    host! 'localhost:3000'
+  end
+
+  # テストの終わりにDBをロールバックする
+  config.use_transactional_fixtures = true
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join('spec/fixtures')
+  config.include FactoryBot::Syntax::Methods
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
