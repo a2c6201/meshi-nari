@@ -17,11 +17,13 @@ RSpec.describe 'api/v1/users', type: :request do
         schema type: :array, items: {
           type: :object,
           properties: {
+            id: { type: :integer },
             name: { type: :string },
             email: { type: :string },
-            password: { type: :string }
+            created_at: { type: :string, format: 'date-time' },
+            updated_at: { type: :string, format: 'date-time' }
           },
-          required: [:name, :email, :password]
+          required: ['id', 'name', 'email', 'created_at', 'updated_at']
         }
         run_test!
 
