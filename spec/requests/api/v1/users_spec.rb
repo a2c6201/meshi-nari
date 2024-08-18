@@ -21,8 +21,12 @@ RSpec.describe 'api/v1/users', type: :request do
           required: [:name, :email, :password]
         }
 
-
         run_test!
+
+        it 'レスポンスのデータ数を確認' do
+          json = JSON.parse(response.body)
+          expect(json.size).to eq(10)
+        end
       end
     end
 
