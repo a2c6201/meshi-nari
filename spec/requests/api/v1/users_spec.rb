@@ -10,6 +10,8 @@ RSpec.describe 'api/v1/users', type: :request do
 
   path '/api/v1/users' do
     get('list users') do
+      # リクエストヘッダがJSON形式であることを示す
+      consumes 'application/json'
       response 200, 'list users' do
         schema type: :array, items: {
           type: :object,
@@ -30,19 +32,29 @@ RSpec.describe 'api/v1/users', type: :request do
       end
     end
 
-    # post('create user') do
-    #   response(200, 'successful') do
+    post('create user') do
+      # リクエストボディがJSON形式であることを示す
+      consumes 'application/json'
+      parameter name: :user, in: :body, schema: {
+        type: :object,
+        properties: {
+          name: { type: :string },
+          email: { type: :string },
+          password: { type: :string }
+        },
+        required: [:name, :email, :password]
+      }
 
-    #     after do |example|
-    #       example.metadata[:response][:content] = {
-    #         'application/json' => {
-    #           example: JSON.parse(response.body, symbolize_names: true)
-    #         }
-    #       }
-    #     end
-    #     run_test!
-    #   end
-    # end
+      response '201', 'user created' do
+        let(:user) { { name: 'test_user', email: 'test@example.com', password: 'test_pass' } }
+        run_test!
+      end
+
+      response '422', 'パスワード無しでリクエスト' do
+        let(:user) { { name: 'test_user', email: 'test@example.com' } }
+        run_test!
+      end
+    end
   end
 
   # path '/api/v1/users/{id}' do
