@@ -9,30 +9,44 @@ paths:
       summary: list users
       responses:
         '200':
-          description: successful
+          description: list users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
     post:
       summary: create user
+      parameters: []
       responses:
-        '200':
-          description: successful
-  "/api/v1/users/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show user
-      responses:
-        '200':
-          description: successful
-    delete:
-      summary: delete user
-      responses:
-        '200':
-          description: successful
+        '201':
+          description: user created
+        '422':
+          description: パスワード無しでリクエスト
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - name
+              - email
+              - password
 servers:
 - url: https://{defaultHost}
   variables:
