@@ -16,7 +16,7 @@ RSpec.configure do |config|
   # the root example_group in your specs, e.g. describe '...', openapi_spec: 'v2/swagger.json'
   config.openapi_specs = {
     'v1/swagger.yaml' => {
-      openapi: '3.0.1',
+      swagger: '2.0',
       info: {
         title: 'API V1',
         version: 'v1'
@@ -31,7 +31,23 @@ RSpec.configure do |config|
             }
           }
         }
-      ]
+      ],
+      components: {
+        schemas: {
+          user: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              name: { type: :string },
+              email: { type: :string },
+              password: { type: :string },
+              created_at: { type: :string, format: 'date-time' },
+              updated_at: { type: :string, format: 'date-time' }
+            },
+            required: %w[id name email created_at updated_at]
+          }
+        }
+      }
     }
   }
 

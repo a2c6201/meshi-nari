@@ -1,5 +1,5 @@
 ---
-openapi: 3.0.1
+swagger: '2.0'
 info:
   title: API V1
   version: v1
@@ -7,48 +7,86 @@ paths:
   "/api/v1/users":
     get:
       summary: list users
+      consumes:
+      - application/json
       responses:
         '200':
           description: list users
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    email:
-                      type: string
-                    password:
-                      type: string
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                email:
+                  type: string
+                created_at:
+                  type: string
+                  format: date-time
+                updated_at:
+                  type: string
+                  format: date-time
+              required:
+              - id
+              - name
+              - email
+              - created_at
+              - updated_at
     post:
       summary: create user
-      parameters: []
+      consumes:
+      - application/json
+      parameters:
+      - name: user
+        in: body
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+          required:
+          - name
+          - email
+          - password
       responses:
         '201':
           description: user created
         '422':
           description: パスワード無しでリクエスト
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                email:
-                  type: string
-                password:
-                  type: string
-              required:
-              - name
-              - email
-              - password
 servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
       default: localhost:3000
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - email
+      - created_at
+      - updated_at
