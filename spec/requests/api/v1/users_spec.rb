@@ -2,14 +2,15 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/users', type: :request do
 
-  # spec/factories/posts.rbで定義したテストデータを10件複製(配列)
-  before do
-    host! 'localhost:3000'
-    FactoryBot.create_list(:user, 10)
-  end
 
   path '/api/v1/users' do
     get('list users') do
+      # spec/factories/posts.rbで定義したテストデータを10件複製(配列)
+      before do
+        host! 'localhost:3000'
+        FactoryBot.create_list(:user, 10)
+      end
+
       # リクエストヘッダがJSON形式であることを示す
       consumes 'application/json'
       response 200, 'list users' do
@@ -22,10 +23,9 @@ RSpec.describe 'api/v1/users', type: :request do
           },
           required: [:name, :email, :password]
         }
-
         run_test!
 
-        it 'レスポンスのデータ数を確認' do
+        it '全ユーザーが取得できるか' do
           json = JSON.parse(response.body)
           expect(json.size).to eq(10)
         end
