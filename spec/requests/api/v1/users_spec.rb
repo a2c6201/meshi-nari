@@ -20,6 +20,7 @@ RSpec.describe 'api/v1/users', type: :request do
             id: { type: :integer },
             name: { type: :string },
             email: { type: :string },
+            password: { type: :string },
             created_at: { type: :string, format: 'date-time' },
             updated_at: { type: :string, format: 'date-time' }
           },
@@ -74,6 +75,7 @@ RSpec.describe 'api/v1/users', type: :request do
             id: { type: :integer },
             name: { type: :string },
             email: { type: :string },
+            password: { type: :string },
             created_at: { type: :string, format: 'date-time' },
             updated_at: { type: :string, format: 'date-time' }
           }
