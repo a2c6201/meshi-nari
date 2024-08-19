@@ -67,6 +67,26 @@ paths:
       type: string
       description: id
       required: true
+    get:
+      summary: show user
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              email:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+              updated_at:
+                type: string
+                format: date-time
     delete:
       summary: delete user
       consumes:
