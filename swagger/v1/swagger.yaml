@@ -59,7 +59,7 @@ paths:
         '201':
           description: user created
         '422':
-          description: パスワード無しでリクエスト
+          description: 無効なリクエスト
 servers:
 - url: https://{defaultHost}
   variables:

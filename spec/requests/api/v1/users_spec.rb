@@ -52,7 +52,7 @@ RSpec.describe 'api/v1/users', type: :request do
         run_test!
       end
 
-      response '422', 'パスワード無しでリクエスト' do
+      response '422', '無効なリクエスト' do
         let(:user) { { name: 'test_user', email: 'test@example.com' } }
         run_test!
       end
