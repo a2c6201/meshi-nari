@@ -4,13 +4,13 @@ RSpec.describe 'api/v1/users', type: :request do
 
 
   path '/api/v1/users' do
+
     get('list users') do
       # spec/factories/posts.rbで定義したテストデータを10件複製(配列)
       before do
         host! 'localhost:3000'
         FactoryBot.create_list(:user, 10)
       end
-
       # リクエストヘッダがJSON形式であることを示す
       consumes 'application/json'
       response 200, 'list users' do
@@ -59,38 +59,43 @@ RSpec.describe 'api/v1/users', type: :request do
     end
   end
 
-  # path '/api/v1/users/{id}' do
-  #   # You'll want to customize the parameter types...
-  #   parameter name: 'id', in: :path, type: :string, description: 'id'
+  path '/api/v1/users/{id}' do
+    # You'll want to customize the parameter types...
+    parameter name: 'id', in: :path, type: :string, description: 'id'
 
-  #   get('show user') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
+    # get('show user') do
+    #   response(200, 'successful') do
+    #     let(:id) { '123' }
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
+    #     after do |example|
+    #       example.metadata[:response][:content] = {
+    #         'application/json' => {
+    #           example: JSON.parse(response.body, symbolize_names: true)
+    #         }
+    #       }
+    #     end
+    #     run_test!
+    #   end
+    # end
 
-  #   delete('delete user') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
+    # factory_botで作成したユーザーを削除する
+    delete('delete user') do
+      consumes 'application/json'
+      before do
+        @user = FactoryBot.create(:user)
+      end
+      response(200, 'successful') do
+        let(:id) { @user.id }
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-  # end
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
+    end
+  end
 end
