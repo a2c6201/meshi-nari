@@ -1,14 +1,11 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/users' do
+  # spec/factories/users.rbで定義したテストデータを10件複製(配列)
+  let!(:users) { create_list(:user, 10) }
+
   path '/api/v1/users' do
     get('list users') do
-      # spec/factories/posts.rbで定義したテストデータを10件複製(配列)
-      before do
-        host! 'localhost:3000'
-        create_list(:user, 10)
-      end
-
       # リクエストヘッダがJSON形式であることを示す
       consumes 'application/json'
       response 200, 'list users' do
@@ -61,9 +58,14 @@ RSpec.describe 'api/v1/users' do
   path '/api/v1/users/{id}' do
     # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
-    # factory_botでダミーユーザー作成
-    before do
-      @user = create(:user)
+
+    after do |example|
+      data = JSON.parse(response.body, symbolize_names: true)
+      example.metadata[:response][:content] = {
+        'application/json' => {
+          example: data
+        }
+      }
     end
 
     get('show user') do
@@ -77,16 +79,8 @@ RSpec.describe 'api/v1/users' do
                  created_at: { type: :string, format: 'date-time' },
                  updated_at: { type: :string, format: 'date-time' }
                }
-        let(:id) { @user.id }
+        let(:id) { users.first.id }
 
-        after do |example|
-          data = JSON.parse(response.body, symbolize_names: true)
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: data
-            }
-          }
-        end
 
         run_test!
       end
@@ -95,16 +89,7 @@ RSpec.describe 'api/v1/users' do
     delete('delete user') do
       consumes 'application/json'
       response(200, 'successful') do
-        let(:id) { @user.id }
-
-        after do |example|
-          data = JSON.parse(response.body, symbolize_names: true)
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: data
-            }
-          }
-        end
+        let(:id) { users.first.id }
 
         run_test!
       end
