@@ -36,6 +36,11 @@ RSpec.describe 'api/v1/menus' do
         }
 
         run_test!
+
+        it 'ユーザーに紐づくメニューを全件取得' do
+          json = JSON.parse(response.body)
+          expect(json.size).to eq(10)
+        end
       end
     end
 
