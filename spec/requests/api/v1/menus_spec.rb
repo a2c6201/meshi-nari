@@ -12,6 +12,14 @@ RSpec.describe 'api/v1/menus' do
       menus
     end
 
+    after do |example|
+      example.metadata[:response][:content] = {
+        'application/json' => {
+          example: JSON.parse(response.body, symbolize_names: true)
+        }
+      }
+    end
+
     get('list menus') do
       consumes 'application/json'
       response(200, 'successful') do
@@ -26,14 +34,6 @@ RSpec.describe 'api/v1/menus' do
           },
           required: ['id', 'name', 'user_id', 'created_at', 'updated_at']
         }
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
 
         run_test!
       end
@@ -51,14 +51,6 @@ RSpec.describe 'api/v1/menus' do
       }
       response(201, 'successful') do
         let(:menu) { { name: 'test_menu', user_id: user_id } }
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
 
         run_test!
       end
