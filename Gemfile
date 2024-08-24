@@ -55,17 +55,17 @@ group :development, :test do
   gem 'annotate' # https://github.com/ctran/annotate_models
   gem 'bullet' # https://github.com/flyerhzm/bullet
   gem 'debug', platforms: %i(mri mingw x64_mingw)
+  gem 'factory_bot_rails'
   gem 'pry', '~> 0.13.1'
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'rails_best_practices', require: false
+  gem 'rspec-rails'
   gem 'rubocop', '~> 1.46', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'ruby-lsp', require: false
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
 end
 
 group :development do
