@@ -44,7 +44,7 @@ RSpec.configure do |config|
               created_at: { type: :string, format: 'date-time' },
               updated_at: { type: :string, format: 'date-time' }
             },
-            required: %w[id name email created_at updated_at]
+            required: %w(id name email created_at updated_at)
           }
         }
       }

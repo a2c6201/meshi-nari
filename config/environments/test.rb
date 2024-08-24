@@ -9,7 +9,7 @@ Rails.application.configure do
   # train-nari-api.onrender.com からのリクエストを許可
   config.hosts << 'train-nari-api.onrender.com'
   # ホスト名のホワイトリストに追加
-  config.hosts << "localhost"
+  config.hosts << 'localhost'
 
   config.after_initialize do
     Bullet.enable        = true

@@ -1,7 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/menus', type: :request do
-
   path '/api/v1/users/{user_id}/menus' do
     # You'll want to customize the parameter types...
     parameter name: 'user_id', in: :path, type: :string, description: 'user_id'
@@ -11,7 +10,6 @@ RSpec.describe 'api/v1/menus', type: :request do
     end
 
     get('list menus') do
-
       let(:user_id) { @user.id }
 
       consumes 'application/json'
@@ -35,6 +33,7 @@ RSpec.describe 'api/v1/menus', type: :request do
             }
           }
         end
+
         run_test!
       end
     end
@@ -45,12 +44,11 @@ RSpec.describe 'api/v1/menus', type: :request do
         type: :object,
         properties: {
           name: { type: :string },
-          user_id: { type: :integer },
+          user_id: { type: :integer }
         },
-        required: [:name, :user_id]
+        required: %i(name user_id)
       }
       response(201, 'successful') do
-
         let(:menu) { { name: 'test_menu', user_id: @user.id } }
         let(:user_id) { @user.id }
 
@@ -61,6 +59,7 @@ RSpec.describe 'api/v1/menus', type: :request do
             }
           }
         end
+
         run_test!
       end
     end

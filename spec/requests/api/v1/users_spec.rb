@@ -1,16 +1,14 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/users', type: :request do
-
-
+RSpec.describe 'api/v1/users' do
   path '/api/v1/users' do
-
     get('list users') do
       # spec/factories/posts.rbで定義したテストデータを10件複製(配列)
       before do
         host! 'localhost:3000'
-        FactoryBot.create_list(:user, 10)
+        create_list(:user, 10)
       end
+
       # リクエストヘッダがJSON形式であることを示す
       consumes 'application/json'
       response 200, 'list users' do
@@ -45,7 +43,7 @@ RSpec.describe 'api/v1/users', type: :request do
           email: { type: :string },
           password: { type: :string }
         },
-        required: [:name, :email, :password]
+        required: %i(name email password)
       }
 
       response '201', 'user created' do
@@ -65,20 +63,20 @@ RSpec.describe 'api/v1/users', type: :request do
     parameter name: 'id', in: :path, type: :string, description: 'id'
     # factory_botでダミーユーザー作成
     before do
-      @user = FactoryBot.create(:user)
+      @user = create(:user)
     end
 
     get('show user') do
       response(200, 'successful') do
         schema type: :object,
-          properties: {
-            id: { type: :integer },
-            name: { type: :string },
-            email: { type: :string },
-            password: { type: :string },
-            created_at: { type: :string, format: 'date-time' },
-            updated_at: { type: :string, format: 'date-time' }
-          }
+               properties: {
+                 id: { type: :integer },
+                 name: { type: :string },
+                 email: { type: :string },
+                 password: { type: :string },
+                 created_at: { type: :string, format: 'date-time' },
+                 updated_at: { type: :string, format: 'date-time' }
+               }
         let(:id) { @user.id }
 
         after do |example|
@@ -89,6 +87,7 @@ RSpec.describe 'api/v1/users', type: :request do
             }
           }
         end
+
         run_test!
       end
     end
@@ -106,6 +105,7 @@ RSpec.describe 'api/v1/users', type: :request do
             }
           }
         end
+
         run_test!
       end
     end
