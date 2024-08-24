@@ -50,7 +50,7 @@ RSpec.describe 'api/v1/menus' do
         required: %i(name user_id)
       }
       response(201, 'successful') do
-        let(:menu) { { name: 'test_menu', user_id: user_id } }
+        let(:menu) { { name: 'test_menu', user_id: } }
 
         run_test!
       end
