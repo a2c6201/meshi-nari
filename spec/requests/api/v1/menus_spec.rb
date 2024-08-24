@@ -1,17 +1,18 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/menus', type: :request do
+RSpec.describe 'api/v1/menus' do
   path '/api/v1/users/{user_id}/menus' do
-    # You'll want to customize the parameter types...
     parameter name: 'user_id', in: :path, type: :string, description: 'user_id'
+
+    let(:user) { create(:user) }
+    let(:user_id) { user.id }
+    let(:menus) { create_list(:menu, 10, user_id:) }
+
     before do
-      @user = FactoryBot.create(:user)
-      @menus = FactoryBot.create_list(:menu, 10, user_id: @user.id)
+      menus
     end
 
     get('list menus') do
-      let(:user_id) { @user.id }
-
       consumes 'application/json'
       response(200, 'successful') do
         schema type: :array, items: {
@@ -49,8 +50,7 @@ RSpec.describe 'api/v1/menus', type: :request do
         required: %i(name user_id)
       }
       response(201, 'successful') do
-        let(:menu) { { name: 'test_menu', user_id: @user.id } }
-        let(:user_id) { @user.id }
+        let(:menu) { { name: 'test_menu', user_id: user_id } }
 
         after do |example|
           example.metadata[:response][:content] = {
