@@ -4,14 +4,17 @@ RSpec.describe 'api/v1/menus' do
   path '/api/v1/users/{user_id}/menus' do
     parameter name: 'user_id', in: :path, type: :string, description: 'user_id'
 
+    # spec/factories/users.rb、menus.rbで定義したテストデータを複製
     let(:user) { create(:user) }
     let(:user_id) { user.id }
     let(:menus) { create_list(:menu, 10, user_id:) }
 
+    # メニューのテストデータを作成
     before do
       menus
     end
 
+    # テストのレスポンス内容をSwagger（OpenAPI）ドキュメントに自動的に反映させる
     after do |example|
       example.metadata[:response][:content] = {
         'application/json' => {
@@ -35,6 +38,7 @@ RSpec.describe 'api/v1/menus' do
           required: ['id', 'name', 'user_id', 'created_at', 'updated_at']
         }
 
+        # requiredで指定したプロパティがレスポンスに含まれているかテスト
         run_test!
 
         it 'ユーザーに紐づくメニューを全件取得' do

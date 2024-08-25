@@ -5,10 +5,12 @@ RSpec.describe 'api/v1/users' do
   let!(:users) { create_list(:user, 10) }
 
   path '/api/v1/users' do
+
     get('list users') do
       # リクエストヘッダがJSON形式であることを示す
       consumes 'application/json'
       response 200, 'list users' do
+        # レスポンスボディのスキーマを定義
         schema type: :array, items: {
           type: :object,
           properties: {
@@ -21,6 +23,8 @@ RSpec.describe 'api/v1/users' do
           },
           required: ['id', 'name', 'email', 'created_at', 'updated_at']
         }
+
+        # requiredで指定したプロパティがレスポンスに含まれているかテスト
         run_test!
 
         it '全ユーザーが取得できるか' do
@@ -56,9 +60,9 @@ RSpec.describe 'api/v1/users' do
   end
 
   path '/api/v1/users/{id}' do
-    # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
 
+    # テストのレスポンス内容をSwagger（OpenAPI）ドキュメントに自動的に反映させる
     after do |example|
       data = JSON.parse(response.body, symbolize_names: true)
       example.metadata[:response][:content] = {
