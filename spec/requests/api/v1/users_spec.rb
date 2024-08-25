@@ -5,7 +5,6 @@ RSpec.describe 'api/v1/users' do
   let!(:users) { create_list(:user, 10) }
 
   path '/api/v1/users' do
-
     get('list users') do
       # リクエストヘッダがJSON形式であることを示す
       consumes 'application/json'
