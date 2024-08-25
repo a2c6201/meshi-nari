@@ -10,7 +10,9 @@ module Api
       end
 
       # GET /users/1 or /users/1.json
-      def show; end
+      def show
+        render json: @user
+      end
 
       # POST /users or /users.json
       def create

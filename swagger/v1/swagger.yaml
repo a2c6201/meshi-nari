@@ -1,0 +1,187 @@
+---
+swagger: '2.0'
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/users/{user_id}/menus":
+    parameters:
+    - name: user_id
+      in: path
+      type: string
+      description: user_id
+      required: true
+    get:
+      summary: list menus
+      consumes:
+      - application/json
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                user_id:
+                  type: integer
+                created_at:
+                  type: string
+                  format: date-time
+                updated_at:
+                  type: string
+                  format: date-time
+              required:
+              - id
+              - name
+              - user_id
+              - created_at
+              - updated_at
+    post:
+      summary: create menu
+      consumes:
+      - application/json
+      parameters:
+      - name: menu
+        in: body
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            user_id:
+              type: integer
+          required:
+          - name
+          - user_id
+      responses:
+        '201':
+          description: successful
+  "/api/v1/users":
+    get:
+      summary: list users
+      consumes:
+      - application/json
+      responses:
+        '200':
+          description: list users
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                created_at:
+                  type: string
+                  format: date-time
+                updated_at:
+                  type: string
+                  format: date-time
+              required:
+              - id
+              - name
+              - email
+              - created_at
+              - updated_at
+    post:
+      summary: create user
+      consumes:
+      - application/json
+      parameters:
+      - name: user
+        in: body
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+          required:
+          - name
+          - email
+          - password
+      responses:
+        '201':
+          description: user created
+        '422':
+          description: 無効なリクエスト
+  "/api/v1/users/{id}":
+    parameters:
+    - name: id
+      in: path
+      type: string
+      description: id
+      required: true
+    get:
+      summary: show user
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+              updated_at:
+                type: string
+                format: date-time
+    delete:
+      summary: delete user
+      consumes:
+      - application/json
+      responses:
+        '200':
+          description: successful
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - email
+      - created_at
+      - updated_at

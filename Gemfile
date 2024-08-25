@@ -47,16 +47,21 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# APIのドキュメント生成
+gem 'rswag'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'annotate' # https://github.com/ctran/annotate_models
   gem 'bullet' # https://github.com/flyerhzm/bullet
   gem 'debug', platforms: %i(mri mingw x64_mingw)
+  gem 'factory_bot_rails'
   gem 'pry', '~> 0.13.1'
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'rails_best_practices', require: false
+  gem 'rspec-rails'
   gem 'rubocop', '~> 1.46', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
