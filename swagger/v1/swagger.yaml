@@ -4,6 +4,63 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/users/{user_id}/menus":
+    parameters:
+    - name: user_id
+      in: path
+      type: string
+      description: user_id
+      required: true
+    get:
+      summary: list menus
+      consumes:
+      - application/json
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                user_id:
+                  type: integer
+                created_at:
+                  type: string
+                  format: date-time
+                updated_at:
+                  type: string
+                  format: date-time
+              required:
+              - id
+              - name
+              - user_id
+              - created_at
+              - updated_at
+    post:
+      summary: create menu
+      consumes:
+      - application/json
+      parameters:
+      - name: menu
+        in: body
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            user_id:
+              type: integer
+          required:
+          - name
+          - user_id
+      responses:
+        '201':
+          description: successful
   "/api/v1/users":
     get:
       summary: list users
@@ -22,6 +79,8 @@ paths:
                 name:
                   type: string
                 email:
+                  type: string
+                password:
                   type: string
                 created_at:
                   type: string
@@ -80,6 +139,8 @@ paths:
               name:
                 type: string
               email:
+                type: string
+              password:
                 type: string
               created_at:
                 type: string
